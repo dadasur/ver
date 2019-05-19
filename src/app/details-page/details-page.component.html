@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-12 col-md-6 col-lg-6 m-auto">
+    <div class="example-button-row mb-2">
+      <button mat-raised-button color="primary" (click)="goBack()">
+        <i class="material-icons">keyboard_backspace</i>
+        Go Back
+      </button>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <mat-card class="example-card mb-4">
+
+          <img mat-card-image [src]="userData.avatar_url" alt="Photo">
+          <mat-card-header>
+            <mat-card-title>{{userData.name}}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>
+              Name:- {{userData.login}}
+            </p>
+            <p>
+              Repository Listing:- {{userData.public_repos}}
+            </p>
+            <p>
+              Follower listing:- {{userData.followers}}
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
