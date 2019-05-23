@@ -5,7 +5,9 @@ import { Injectable } from '@angular/core';
 })
 export class GlobalService {
 
-  url = 'https://api.github.com/';
+  url = 'https://api.github.com/users';
+
+  urll= 'https://api.github.com/search/users';
 
   constructor() { }
 }

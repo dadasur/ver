@@ -21,26 +21,20 @@ export class DetailsPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.param_id = this.activatedRoute.snapshot.paramMap.get('login');
-    this.getServiceCall(`users`, `/${this.param_id}`);
-  }
-
-  getServiceCall(url, params) {
-    this.api.getServiceCall(url, params).subscribe(
-      res => {
-        this.userData = res;
-      },
-      error => {
-        console.log(error);
+    this.param_id = this.activatedRoute.snapshot.paramMap.get('login');  
+    console.log("user digital"+this.param_id);
+    this.api.Getbyparameter(this.param_id )
+    .subscribe(data=>
+      {
+     this.userData=data;
+     console.log("get comment by"+JSON.stringify(data)); 
       }
     );
   }
-
   // call photos route
   getPhotos(row) {
     this.router.navigate(['/photos', row.id]);
   }
-
   // go back for previous route
   goBack() {
     this._location.back();

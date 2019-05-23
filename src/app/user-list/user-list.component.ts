@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
-import { Router } from '@angular/router';
-
+import { Router } from '@angular/router';      
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
@@ -14,44 +13,49 @@ export class UserListComponent implements OnInit {
   heroes: any;
   searchUser: any;
   callApiTime: any;
+  aa:any;
   constructor(
     private router: Router,
     private api: ApiService
   ) { }
-
+  
   ngOnInit() {
-    this.getServiceCall('users', '');
-  }
-
-  getServiceCall(url, params) {
-    this.api.getServiceCall(url, params).subscribe(
-      res => {
-        if (url === 'users') {
-          this.dataSource = res;
-        } else if (url === 'search') {
-          this.dataSource = res.items;
-        }
-      },
-      error => {
-        console.log(error);
+    console.log("hii")
+    /*this.getServiceCall('users', '');*/
+    this.api.GetBatchDetails()
+    .subscribe(data=>
+      {
+     //console.log("batchdetails"+JSON.stringify(data));
+     this.dataSource = data;
       }
     );
   }
-
-  getSingleUser(row) {
+  getSingleUser(row) {        
     this.router.navigate(['/details', row.login]);
   }
 
-  search(value) {
+  search(value) {    
     clearTimeout(this.callApiTime);
     this.callApiTime = setTimeout(() => {
       console.log(value);
       if (value) {
-        this.getServiceCall('search', `?q=${value}`);
+        this.api.GetCommentbyparameter(value).subscribe(data=>{
+          this.dataSource = data.items;
+          console.log("get comment by"+JSON.stringify(data));
+        });
+         
+          
       } else {
-        this.getServiceCall('users', '');
+        console.log("else part")
+        this.api.GetBatchDetails()
+    .subscribe(data=>
+      {
+     //console.log("batchdetails"+JSON.stringify(data));
+     this.dataSource = data;
+      }
+    );
       }
     }, 300);
   }
-
+    
 }
